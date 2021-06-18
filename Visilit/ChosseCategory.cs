@@ -13,9 +13,9 @@ namespace Visilit
     public partial class ChosseCategory : Form
     {
         DataBase db = new DataBase();
-        private string word;
+        private string word, wordForComp;
         private string category;
-       
+
         public ChosseCategory()
         {
             InitializeComponent();
@@ -31,19 +31,30 @@ namespace Visilit
         {
             Random R = new Random();
             int k = R.Next(0, words.Length);
+            int r = R.Next(0, words.Length);
+            while (r == k) r = R.Next(0, words.Length);
             for (int i = 0; i < words.Length; i++)
                 if (i == k)
                 {
                     word = words[i];
-                    break;
+                }
+                else if( i== r)
+                {
+                    wordForComp = words[i];
                 }
             Close();
+        }
+
+        public string WordForGameForComp()
+        {
+            return wordForComp;
         }
 
         public string WordForGame()
         {
             return word;
         }
+
         public string CategoryForGame()
         {
             return category;
