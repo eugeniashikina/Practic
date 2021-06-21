@@ -7,14 +7,24 @@ namespace Visilit
 {
     public partial class MainGame : Form
     {
+        //экземпляр класса выбора категорий
         ChosseCategory cc = new ChosseCategory();
+        //компьютер
         CompGame comp;
+        //слова для игры с компьютером
         private string word, wordForComp;
+        //алфавит
         private string[] alf = { "а", "б", "в", "г", "д", "е", "ё", "ж", "з", "и", "й", "к", "л", "м", "н", "о", "п", "р", "с", "т", "у", "ф", "х", "ц", "ч", "ш", "щ", "ъ", "ы", "ь", "э", "ю", "я" };
+        //размер кнопки
         private int buttonSize = 35;
+        //изображения
         private List<Image> img;
+        //кол-во ошибок
         private int attempt;
 
+        /// <summary>
+        /// записывает все изображения для виселицы
+        /// </summary>
         public MainGame()
         {
             InitializeComponent();
@@ -22,12 +32,18 @@ namespace Visilit
                 Properties.Resources._4, Properties.Resources._5, Properties.Resources._6, Properties.Resources._7};
         }
 
+        /// <summary>
+        /// смена картинок в соответствии с ошибками
+        /// </summary>
         private void errorAnswer()
         {
             attempt++;
             pictureBox1.Image = img[attempt];
         }
 
+        /// <summary>
+        /// выбор категории
+        /// </summary>
         public void chosse(object sender, EventArgs e)
         {
             this.Hide();
@@ -42,6 +58,9 @@ namespace Visilit
             button1.Enabled = false;
         }
 
+        /// <summary>
+        /// обработчик события нажатия на кнопку
+        /// </summary>
         private void obrobotchik(object sender, EventArgs e)
         {
             ((Button)sender).Enabled = false;
@@ -62,7 +81,7 @@ namespace Visilit
                 clear();
                 button1.Enabled = true;
             }
-            else if(wordForComp==label5.Text)
+            else if (wordForComp == label5.Text)
             {
                 MessageBox.Show("Вы проиграли, компьютер выиграл");
                 clear();
@@ -83,6 +102,9 @@ namespace Visilit
             }
         }
 
+        /// <summary>
+        /// выполняет ход компьютера
+        /// </summary>
         private void PlayGameWithComp()
         {
             comp.PlayGame();
@@ -90,6 +112,9 @@ namespace Visilit
             label4.Text = "Ошибки: " + comp.RetunrError() + " из 7";
         }
 
+        /// <summary>
+        /// очищает поле
+        /// </summary>
         private void clear()
         {
             panel1.Controls.Clear();
@@ -102,6 +127,11 @@ namespace Visilit
             button1.Enabled = true;
         }
 
+        /// <summary>
+        /// проверка слова на наличие выбранной пользователем буквы
+        /// </summary>
+        /// <param name="letter">буква</param>
+        /// <returns>да или нет</returns>
         private bool proverka(string letter)
         {
             bool fg = false;
@@ -124,6 +154,11 @@ namespace Visilit
             return fg;
         }
 
+        /// <summary>
+        /// шифрование слова символами
+        /// </summary>
+        /// <param name="word">слово для пользователя</param>
+        /// <param name="wordForComp">слово для компьютера</param>
         private void shifr(string word, string wordForComp)
         {
             for (int i = 0; i < word.Length; i++)
@@ -132,6 +167,9 @@ namespace Visilit
                 label5.Text += "*";
         }
 
+        /// <summary>
+        /// добавление кнопок на панель
+        /// </summary>
         private void AddButtons()
         {
             int numb = 0;
